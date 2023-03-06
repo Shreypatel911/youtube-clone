@@ -1,5 +1,6 @@
 package com.example.youtubeclone.controller;
 
+import com.example.youtubeclone.dto.VideoDto;
 import com.example.youtubeclone.model.Video;
 import com.example.youtubeclone.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,17 @@ public class VideoController {
     @ResponseStatus(HttpStatus.CREATED)
     public Video uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
         return videoService.uploadVideo(file);
+    }
+
+    @PostMapping("/thumbnail")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String uploadThumbnail(@RequestParam("file") MultipartFile file, @RequestParam("videoId") String videoId) throws IOException {
+        return videoService.uploadThumbnail(file, videoId);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public VideoDto editVideoMetadata(@RequestBody VideoDto videoDto) {
+        return videoService.editVideo(videoDto);
     }
 }
